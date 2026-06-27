@@ -1,5 +1,5 @@
-# hello-static
+# EVOKE Workshop Website
 
-An example static website repository you can use to deploy a static site on Fly.io, using nginx.
+Static website for EVOKE, a workshop on human and machine intelligence focused on eliciting knowledge into formal, verifiable representations.
 
-Used by the guide at https://fly.io/docs/getting-started/static/
+The site is served from `public/index.html` and can be deployed with the existing nginx Dockerfile.
