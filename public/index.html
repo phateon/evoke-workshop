@@ -1,671 +1,360 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="EVOKE is a workshop on eliciting human knowledge into formal representations that solvers, verifiers, and sound inference systems can test."
+      content="EVOKE is the HCOMP 2026 workshop on Eliciting Verifiable, Operational Knowledge from Experts."
     >
-    <title>EVOKE Workshop | Human and Machine Intelligence</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --ink: #15181b;
-        --muted: #5a616a;
-        --paper: #f8f5ee;
-        --white: #fffdf8;
-        --line: #d8d1c3;
-        --teal: #006d6f;
-        --red: #b54032;
-        --gold: #c98b2c;
-        --plum: #4b385f;
-        --green: #4f6f38;
-        --shadow: 0 24px 70px rgba(35, 30, 22, 0.13);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        background: var(--paper);
-        color: var(--ink);
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        line-height: 1.5;
-      }
-
-      a {
-        color: inherit;
-      }
-
-      .site-header {
-        position: fixed;
-        z-index: 20;
-        top: 0;
-        right: 0;
-        left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 18px clamp(18px, 5vw, 64px);
-        color: var(--white);
-        mix-blend-mode: difference;
-      }
-
-      .brand {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(1.25rem, 2vw, 1.75rem);
-        font-weight: 700;
-        letter-spacing: 0;
-        text-decoration: none;
-      }
-
-      .site-nav {
-        display: flex;
-        align-items: center;
-        gap: clamp(12px, 2vw, 28px);
-        font-size: 0.86rem;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-
-      .site-nav a {
-        text-decoration: none;
-      }
-
-      .hero {
-        position: relative;
-        min-height: 92vh;
-        overflow: hidden;
-        display: grid;
-        align-items: center;
-        padding: 116px clamp(20px, 7vw, 96px) 56px;
-        background: #171617;
-        color: var(--white);
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image:
-          linear-gradient(rgba(255, 253, 248, 0.06) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 253, 248, 0.06) 1px, transparent 1px);
-        background-size: 52px 52px;
-        mask-image: linear-gradient(to bottom, #000 0 70%, transparent 100%);
-      }
-
-      .hero-visual {
-        position: absolute;
-        inset: 6vh 0 0 auto;
-        width: min(62vw, 820px);
-        min-width: 520px;
-        opacity: 0.82;
-      }
-
-      .trace {
-        position: absolute;
-        height: 2px;
-        background: rgba(255, 253, 248, 0.42);
-        transform-origin: left center;
-      }
-
-      .trace.one {
-        top: 21%;
-        right: 14%;
-        width: 420px;
-        transform: rotate(23deg);
-      }
-
-      .trace.two {
-        top: 43%;
-        right: 4%;
-        width: 620px;
-        transform: rotate(-13deg);
-      }
-
-      .trace.three {
-        top: 64%;
-        right: 16%;
-        width: 520px;
-        transform: rotate(16deg);
-      }
-
-      .node {
-        position: absolute;
-        display: grid;
-        place-items: center;
-        width: clamp(82px, 9vw, 128px);
-        aspect-ratio: 1;
-        border: 1px solid rgba(255, 253, 248, 0.5);
-        background: rgba(23, 22, 23, 0.78);
-        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
-        color: var(--white);
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(1.7rem, 3vw, 3rem);
-      }
-
-      .node.a {
-        top: 9%;
-        right: 18%;
-        border-color: var(--gold);
-      }
-
-      .node.b {
-        top: 31%;
-        right: 52%;
-        border-color: var(--teal);
-      }
-
-      .node.c {
-        top: 55%;
-        right: 8%;
-        border-color: var(--red);
-      }
-
-      .node.d {
-        top: 70%;
-        right: 46%;
-        border-color: var(--green);
-      }
-
-      .proof-strip {
-        position: absolute;
-        right: 5%;
-        bottom: 10%;
-        display: grid;
-        gap: 10px;
-        width: min(38vw, 380px);
-        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-        font-size: clamp(0.72rem, 1vw, 0.92rem);
-        color: rgba(255, 253, 248, 0.78);
-      }
-
-      .proof-strip span {
-        display: block;
-        border-left: 3px solid var(--gold);
-        padding: 8px 0 8px 14px;
-        background: rgba(255, 253, 248, 0.045);
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 2;
-        width: min(780px, 100%);
-      }
-
-      .eyebrow {
-        margin: 0 0 18px;
-        color: #f0b766;
-        font-size: 0.84rem;
-        font-weight: 800;
-        text-transform: uppercase;
-      }
-
-      h1,
-      h2,
-      h3 {
-        margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
-        font-weight: 700;
-        line-height: 1.02;
-      }
-
-      h1 {
-        max-width: 8.5ch;
-        font-size: clamp(4.8rem, 16vw, 12.5rem);
-      }
-
-      .dek {
-        max-width: 720px;
-        margin: 22px 0 0;
-        font-size: clamp(1.2rem, 2.6vw, 2.15rem);
-        line-height: 1.16;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 34px;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 48px;
-        padding: 13px 18px;
-        border: 1px solid var(--white);
-        background: var(--white);
-        color: var(--ink);
-        font-weight: 800;
-        text-decoration: none;
-      }
-
-      .button.secondary {
-        background: transparent;
-        color: var(--white);
-      }
-
-      main {
-        overflow: hidden;
-      }
-
-      section {
-        padding: clamp(64px, 10vw, 126px) clamp(20px, 7vw, 96px);
-      }
-
-      .section-inner {
-        width: min(1160px, 100%);
-        margin: 0 auto;
-      }
-
-      .split {
-        display: grid;
-        grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
-        gap: clamp(38px, 7vw, 92px);
-        align-items: start;
-      }
-
-      .label {
-        margin: 0 0 14px;
-        color: var(--red);
-        font-size: 0.78rem;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      h2 {
-        max-width: 760px;
-        font-size: clamp(2.2rem, 5vw, 5.2rem);
-      }
-
-      h3 {
-        font-size: clamp(1.35rem, 2vw, 1.85rem);
-      }
-
-      .lead {
-        margin: 0;
-        color: var(--muted);
-        font-size: clamp(1.08rem, 1.7vw, 1.28rem);
-      }
-
-      .body-copy {
-        display: grid;
-        gap: 22px;
-        color: #34383d;
-        font-size: 1.05rem;
-      }
-
-      .body-copy p {
-        margin: 0;
-      }
-
-      .statement {
-        background: var(--white);
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-      }
-
-      .question-band {
-        background: var(--teal);
-        color: var(--white);
-      }
-
-      .question-band .label,
-      .question-band .lead {
-        color: #ffe1a9;
-      }
-
-      .metrics {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1px;
-        margin-top: clamp(36px, 5vw, 64px);
-        background: rgba(255, 253, 248, 0.32);
-      }
-
-      .metric {
-        min-height: 190px;
-        padding: clamp(22px, 3vw, 34px);
-        background: rgba(0, 0, 0, 0.15);
-      }
-
-      .metric strong {
-        display: block;
-        margin-bottom: 16px;
-        color: #ffe1a9;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(2rem, 4vw, 4.2rem);
-        line-height: 0.9;
-      }
-
-      .metric p {
-        margin: 0;
-        color: rgba(255, 253, 248, 0.86);
-      }
-
-      .focus-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-        margin-top: clamp(36px, 5vw, 62px);
-      }
-
-      .focus-card {
-        min-height: 236px;
-        padding: 26px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--white);
-        box-shadow: var(--shadow);
-      }
-
-      .focus-card::before {
-        content: "";
-        display: block;
-        width: 44px;
-        height: 6px;
-        margin-bottom: 28px;
-        background: var(--accent, var(--teal));
-      }
-
-      .focus-card p {
-        margin: 14px 0 0;
-        color: var(--muted);
-      }
-
-      .topic-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 34px;
-      }
-
-      .topic-list span {
-        padding: 8px 12px;
-        border: 1px solid var(--line);
-        background: var(--white);
-        color: #30353a;
-        font-size: 0.92rem;
-        font-weight: 750;
-      }
-
-      .callout {
-        background: #26202c;
-        color: var(--white);
-      }
-
-      .callout .section-inner {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: clamp(28px, 6vw, 70px);
-        align-items: center;
-      }
-
-      .callout h2 {
-        max-width: 940px;
-      }
-
-      .callout p {
-        max-width: 720px;
-        margin: 20px 0 0;
-        color: rgba(255, 253, 248, 0.78);
-        font-size: 1.15rem;
-      }
-
-      .mark {
-        display: grid;
-        place-items: center;
-        width: clamp(132px, 18vw, 230px);
-        aspect-ratio: 1;
-        border: 2px solid #f0b766;
-        color: #f0b766;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(3rem, 7vw, 6.8rem);
-      }
-
-      .site-footer {
-        display: flex;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 30px clamp(20px, 7vw, 96px);
-        border-top: 1px solid var(--line);
-        color: var(--muted);
-        font-size: 0.92rem;
-      }
-
-      @media (max-width: 900px) {
-        .site-header {
-          position: absolute;
-          mix-blend-mode: normal;
-        }
-
-        .site-nav {
-          display: none;
-        }
-
-        .hero {
-          min-height: 88vh;
-        }
-
-        .hero-visual {
-          inset: auto -160px 2vh auto;
-          width: 700px;
-          min-width: 700px;
-          opacity: 0.42;
-        }
-
-        .proof-strip {
-          display: none;
-        }
-
-        .split,
-        .callout .section-inner {
-          grid-template-columns: 1fr;
-        }
-
-        .metrics,
-        .focus-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .metric {
-          min-height: auto;
-        }
-      }
-
-      @media (max-width: 560px) {
-        .hero {
-          padding-top: 94px;
-        }
-
-        h1 {
-          font-size: clamp(4rem, 24vw, 7rem);
-        }
-
-        .dek {
-          font-size: 1.22rem;
-        }
-
-        .hero-actions {
-          align-items: stretch;
-          flex-direction: column;
-        }
-
-        .button {
-          width: 100%;
-        }
-
-        .site-footer {
-          flex-direction: column;
-        }
-      }
-    </style>
+    <title>EVOKE | HCOMP 2026 Workshop</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header class="site-header" aria-label="Site header">
       <a class="brand" href="#">EVOKE</a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="#question">Question</a>
-        <a href="#focus">Focus</a>
-        <a href="#community">Community</a>
+        <a href="#overview">Overview</a>
+        <a href="#topics">Topics</a>
+        <a href="#format">Format</a>
+        <a href="#organizers">Organizers</a>
+        <a href="#participate">Participate</a>
       </nav>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-visual" aria-hidden="true">
-          <span class="trace one"></span>
-          <span class="trace two"></span>
-          <span class="trace three"></span>
-          <span class="node a">K</span>
-          <span class="node b">?</span>
-          <span class="node c">V</span>
-          <span class="node d">T</span>
-          <div class="proof-strip">
-            <span>claim -> constraint</span>
-            <span>constraint -> solver verdict</span>
-            <span>verdict -> belief revision</span>
-          </div>
-        </div>
         <div class="hero-content">
-          <p class="eyebrow">Workshop on human and machine intelligence</p>
+          <p class="eyebrow">Workshop Proposal · HCOMP 2026</p>
           <h1 id="hero-title">EVOKE</h1>
+          <p class="subtitle">Eliciting Verifiable, Operational Knowledge from Experts</p>
           <p class="dek">
-            Knowledge elicitation into formal representations whose usefulness can be tested,
-            verified, and made reusable.
+            Knowledge elicitation into formal, provable, and sound representations:
+            constraints, optimization models, logic, programs, typed specifications,
+            ontologies, and probabilistic models.
           </p>
           <div class="hero-actions">
-            <a class="button" href="#focus">Explore the workshop</a>
-            <a class="button secondary" href="#community">Who should join</a>
+            <a class="button" href="#participate">Call for participation</a>
+            <a class="button secondary" href="#format">Workshop format</a>
+          </div>
+        </div>
+
+        <div class="facts" aria-label="Workshop facts">
+          <div class="fact">
+            <strong>Venue</strong>
+            <span>HCOMP and CI 2026, Virginia Tech, near Washington DC</span>
+          </div>
+          <div class="fact">
+            <strong>Date</strong>
+            <span>September 27, 2026</span>
+          </div>
+          <div class="fact">
+            <strong>Mode</strong>
+            <span>Full-day, in person, with a hybrid option</span>
+          </div>
+          <div class="fact">
+            <strong>Participants</strong>
+            <span>Expected attendance: 40 to 60</span>
           </div>
         </div>
       </section>
 
-      <section class="statement" id="question">
+      <section class="band" id="overview">
         <div class="section-inner split">
           <div>
-            <p class="label">The problem</p>
-            <h2>We have data and learners. We still need knowledge we can trust.</h2>
+            <p class="label">Overview</p>
+            <h2>We have abundant data and powerful learners. We still lack knowledge we can prove useful.</h2>
           </div>
-          <div class="body-copy">
+          <div class="band-section">
             <p>
-              EVOKE starts from a practical gap: we do not yet have a reliable way to elicit
-              the structured and reusable claims a person holds, then prove that what we
-              extracted is correct and useful.
+              EVOKE focuses on knowledge elicitation into representations with formal,
+              provable, or sound inference properties. It is organized around one question
+              that separates knowledge from data: how do we know the elicited knowledge is
+              correct and useful?
             </p>
             <p>
-              The workshop focuses on elicitation into representations with formal, provable,
-              or sound inference properties: constraints, optimization models, logic, programs,
-              typed specifications, ontologies, and probabilistic models.
+              When the target is a formal representation, that question becomes measurable.
+              A solver returns ground truth. A verifier certifies a result. An unsatisfiable
+              core exposes a contradiction the expert did not know they held.
             </p>
             <p>
-              Its central question separates knowledge from data: how do we know the elicited
-              knowledge is correct and useful?
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="question-band">
-        <div class="section-inner">
-          <p class="label">Why formal targets matter</p>
-          <h2>When knowledge lands in a formal representation, evaluation becomes measurable.</h2>
-          <div class="metrics">
-            <article class="metric">
-              <strong>01</strong>
-              <p>A solver can return ground truth for the elicited structure.</p>
-            </article>
-            <article class="metric">
-              <strong>02</strong>
-              <p>A verifier can certify whether a result follows from the representation.</p>
-            </article>
-            <article class="metric">
-              <strong>03</strong>
-              <p>An unsatisfiable core can expose a contradiction the expert did not know they held.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="focus">
-        <div class="section-inner">
-          <div class="split">
-            <div>
-              <p class="label">The frontier</p>
-              <h2>Language models made elicitation cheap. Soundness is still the hard part.</h2>
-            </div>
-            <p class="lead">
-              Large language models have collapsed the cost of the natural-language interface
-              that stalled knowledge acquisition for decades. But prose is not a proof, and a
+              Large language models have collapsed the cost of the natural-language
+              interface that stalled knowledge acquisition for decades. But language models
+              elicit into prose, with no guarantee of soundness, and they fail open: a
               plausible specification that is subtly wrong is the dangerous case.
             </p>
           </div>
+        </div>
+      </section>
 
-          <div class="focus-grid" aria-label="Workshop focus areas">
-            <article class="focus-card" style="--accent: var(--teal)">
-              <h3>Elicit at scale</h3>
-              <p>Use plain-language interaction to surface expert claims, assumptions, and tradeoffs.</p>
+      <section class="band band-dark">
+        <div class="section-inner">
+          <p class="label">Core question</p>
+          <h2>Can extracted knowledge be proven useful?</h2>
+          <div class="grid metric-grid" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+            <article class="grid-item metric-item">
+              <strong>01</strong>
+              <p>Can elicited claims be compiled into a representation a machine can reason over soundly?</p>
             </article>
-            <article class="focus-card" style="--accent: var(--red)">
-              <h3>Compile to form</h3>
-              <p>Translate extracted knowledge into representations a solver, verifier, or inference engine can underwrite.</p>
+            <article class="grid-item metric-item">
+              <strong>02</strong>
+              <p>Can correctness, completeness, faithfulness, and usefulness be measured against verifiable ground truth?</p>
             </article>
-            <article class="focus-card" style="--accent: var(--gold)">
-              <h3>Measure utility</h3>
-              <p>Evaluate whether captured knowledge holds, transfers, and improves downstream decisions.</p>
+            <article class="grid-item metric-item">
+              <strong>03</strong>
+              <p>Can systems fail closed, exposing ambiguity and contradiction instead of producing plausible but wrong specifications?</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="statement" id="community">
+      <section class="band" id="topics">
+        <div class="section-inner">
+          <div class="split">
+            <div>
+              <p class="label">Topics and subtopics</p>
+              <h2>EVOKE convenes communities that rarely share a room.</h2>
+            </div>
+            <div class="band-section">
+              <p>
+                The workshop brings together knowledge engineering, expert judgment,
+                requirements engineering, human-AI interaction, operations research,
+                neuro-symbolic AI, natural language processing, formal methods, and
+                decision analysis around shared evaluation.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid card-grid" aria-label="Topics in scope">
+            <article class="grid-item card-item" style="--card-accent: var(--primary)">
+              <h3>Formal representations</h3>
+              <p>Hard and soft constraints, optimization and scheduling models, logic, programs, typed specifications, ontologies, knowledge graphs, probabilistic models, and priors.</p>
+            </article>
+            <article class="grid-item card-item" style="--card-accent: var(--accent)">
+              <h3>LLM-mediated elicitation</h3>
+              <p>Multi-turn dialogue, mixed initiative, clarifying questions, underspecification, ambiguity, contradiction, tacit knowledge, and constraints inferred from behavior.</p>
+            </article>
+            <article class="grid-item card-item" style="--card-accent: var(--primary)">
+              <h3>Evaluation and benchmarks</h3>
+              <p>Correctness, completeness, faithfulness, usefulness, calibration, known answers, unreliable narrators, and metrics for elicitation quality and efficiency.</p>
+            </article>
+            <article class="grid-item card-item" style="--card-accent: var(--accent)">
+              <h3>Solvers and verifiers</h3>
+              <p>Autoformalization, neuro-symbolic methods, constraint programming, SAT, SMT, MILP, theorem provers, and soundness-preserving pipelines.</p>
+            </article>
+            <article class="grid-item card-item" style="--card-accent: var(--primary)">
+              <h3>Educability</h3>
+              <p>Teaching versus learning, belief choice and belief verification, robust logic, and the sample and teaching efficiency of elicitation.</p>
+            </article>
+            <article class="grid-item card-item" style="--card-accent: var(--accent)">
+              <h3>Trust and accountability</h3>
+              <p>Decision traces, auditability, bias in elicitation, aggregation across experts, provenance, and governance of machine-captured knowledge.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band-light">
         <div class="section-inner split">
           <div>
-            <p class="label">Intellectual frame</p>
-            <h2>Educability, explicit knowledge, and belief verification.</h2>
+            <p class="label">Rationale and objectives</p>
+            <h2>The knowledge-acquisition bottleneck is newly tractable, but not solved.</h2>
           </div>
-          <div class="body-copy">
+          <div class="band-section">
             <p>
-              EVOKE draws on Leslie Valiant's educability framework, which locates human
-              uniqueness not in learning from examples but in being taught explicit knowledge
-              and chaining it, with belief verification as the safeguard.
+              Expert systems and hand-built knowledge bases stalled because getting what a
+              person knows into a machine-usable form was slow and brittle. Language models
+              changed the economics of the interface overnight, but they often elicit into
+              latent, unverifiable form.
+            </p>
+            <ol>
+              <li>Convene scattered communities around a common vocabulary for elicitation, soundness, and usefulness.</li>
+              <li>Define shared evaluation using solvers and verifiers as ground truth, importing calibration and aggregation from structured expert judgment.</li>
+              <li>Launch an open, solver-verifiable shared task and dataset of elicited formal problems.</li>
+              <li>Produce a workshop report, a position paper on evaluation standards, and scope a journal special issue and recurring EVOKE series.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="format">
+        <div class="section-inner">
+          <div class="split">
+            <div>
+              <p class="label">Format and activities</p>
+              <h2>A full-day workshop built around eliciting and verifying something concrete.</h2>
+            </div>
+            <div class="band-section">
+              <p>
+                EVOKE is an in-person workshop with a hybrid option so remote authors and
+                speakers can take part. The shared-task session is participatory by design:
+                every attendee should help elicit and verify something by the end of the day.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid card-grid" aria-label="Workshop activities">
+            <article class="grid-item card-item">
+              <h3>Two keynotes</h3>
+              <p>One on learning theory and educability; one on integrating language models with formal verifiers and solvers.</p>
+            </article>
+            <article class="grid-item card-item">
+              <h3>Paired invited talks</h3>
+              <p>Human-elicitation lineages such as knowledge acquisition or structured expert judgment paired with the LLM-and-solver frontier.</p>
+            </article>
+            <article class="grid-item card-item">
+              <h3>Contributed program</h3>
+              <p>Full papers, short papers, position papers, demos, datasets, benchmarks, and lightning talks in a single track.</p>
+            </article>
+            <article class="grid-item card-item">
+              <h3>Interactive shared task</h3>
+              <p>A live, scored elicitation challenge: elicit a formal problem from an unreliable narrator and score it against a solver.</p>
+            </article>
+            <article class="grid-item card-item">
+              <h3>Panel</h3>
+              <p>Can extracted knowledge be proven useful, and is elicitation a distinct capability or something frontier scale absorbs?</p>
+            </article>
+            <article class="grid-item card-item">
+              <h3>Data clinic</h3>
+              <p>Industry participants bring real elicitation problems, with demos running through breaks and an open repository for shared artifacts.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band-dark" id="participate">
+        <div class="section-inner split">
+          <div>
+            <p class="label">Call for participation</p>
+            <h2>Bring an expert, a verifier, and a hard question.</h2>
+          </div>
+          <div class="band-section">
+            <p>
+              EVOKE invites research, position, demo, and dataset papers on eliciting
+              knowledge into representations a machine can reason over soundly.
             </p>
             <p>
-              The workshop convenes researchers and practitioners around shared evaluation,
-              a solver-verifiable shared task, and the question of when extracted knowledge is
-              provably useful.
+              We welcome work on formal elicitation, LLM-mediated and mixed-initiative
+              interaction, clarifying questions, tacit knowledge, integration with SAT,
+              SMT, MILP, constraint programming, theorem provers, verifiable benchmarks,
+              structured expert judgment, educability, robotics, operations, compliance,
+              agentic AI, and vertical AI.
             </p>
-            <div class="topic-list" aria-label="Participating fields">
-              <span>Knowledge engineering</span>
-              <span>Expert judgment</span>
-              <span>Requirements engineering</span>
-              <span>Human-AI interaction</span>
-              <span>Operations research</span>
-              <span>Neuro-symbolic AI</span>
-              <span>Natural language processing</span>
+            <p>
+              Submissions are 2 to 8 pages excluding references. Participate as an author,
+              a shared-task entrant, or a discussant.
+            </p>
+
+            <div class="date-grid" aria-label="Important dates">
+              <div class="date-box">
+                <strong>Submission deadline</strong>
+                <span>July 23, 2026</span>
+              </div>
+              <div class="date-box">
+                <strong>Notifications</strong>
+                <span>August 7, 2026</span>
+              </div>
+              <div class="date-box">
+                <strong>Workshop</strong>
+                <span>September 27, 2026</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="callout">
+      <section class="band" id="organizers">
+        <div class="section-inner">
+          <div class="split">
+            <div>
+              <p class="label">Organizers</p>
+              <h2>Organizing committee</h2>
+            </div>
+
+            <div class="band-section">
+              <p>
+                The committee is being finalized and balanced across academia and industry,
+                research area, and demographics. At least two organizers will attend in person.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid card-grid" aria-label="Workshop organizers">
+            <article class="grid-item card-item">
+              <h3>Praveen Paritosh</h3>
+              <p class="affiliation">MLCommons</p>
+              <p>Works on knowledge representation, crowdsourcing, and evaluation. Co-founded data-centric benchmarking efforts at MLCommons, including DataPerf and the DMLR initiative.</p>
+            </article>
+            <article class="grid-item card-item">
+              <h3>Vinay K. Chaudhri</h3>
+              <p class="affiliation">Knowledge representation and knowledge graphs</p>
+              <p>Former SRI International researcher and leader of the Inquire intelligent biology textbook under Project Halo; teaches Stanford's graduate course on Knowledge Graphs.</p>
+            </article>
+            <article class="grid-item card-item">
+              <h3>Ram Bala</h3>
+              <p class="affiliation">Santa Clara University</p>
+              <p>Professor of AI and analytics whose work spans operations research, optimization, and analytics for data-driven decision-making.</p>
+            </article>
+            <article class="grid-item card-item">
+              <h3>Clifton McFate</h3>
+              <p class="affiliation">AI researcher</p>
+              <p>Specializes in knowledge representation, natural language understanding, and neuro-symbolic reasoning; built business-logic elicitation systems at Elemental Cognition.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band-light">
+        <div class="section-inner split">
+          <div>
+            <p class="label">Outcomes and outreach</p>
+            <h2>EVOKE is designed to leave behind community infrastructure.</h2>
+          </div>
+          <div class="band-section">
+            <p>
+              Planned outcomes include a workshop report, an open benchmark, a dataset, a
+              public leaderboard, a community position paper on evaluation standards for
+              elicited knowledge, and scoping for a journal special issue and recurring
+              EVOKE series. These plans are tentative.
+            </p>
+            <p>
+              Outreach will use HCOMP and CI channels, knowledge-engineering and Semantic
+              Web lists including K-CAP, operations research venues including INFORMS,
+              CPAIOR, and AI4OPT, formal-methods, neuro-symbolic, NLP, human-AI interaction,
+              and CSCW communities, plus direct outreach to applied-AI companies and labs.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="section-inner">
+          <p class="label">References</p>
+          <h2>Intellectual foundations</h2>
+          <ol class="references">
+            <li>Valiant, L. (2024). The Importance of Being Educable: A New Theory of Human Uniqueness. Princeton University Press.</li>
+            <li>Valiant, L. (2024). The Parameters of Educability. arXiv:2412.09480.</li>
+            <li>Valiant, L. (2000). Robust Logics. Artificial Intelligence, 117.</li>
+            <li>Valiant, L. (1984). A Theory of the Learnable. Communications of the ACM, 27(11).</li>
+            <li>Feigenbaum, E. (1984). Knowledge engineering: the applied side of artificial intelligence. Annals of the New York Academy of Sciences.</li>
+            <li>Cooke, R. M. (1991). Experts in Uncertainty: Opinion and Subjective Probability in Science. Oxford University Press.</li>
+            <li>Horvitz, E. (1999). Principles of mixed-initiative user interfaces. CHI.</li>
+            <li>Lawless, C., Schoeffer, J., Le, L., et al. (2024). "I Want It That Way": Enabling Interactive Decision Support Using Large Language Models and Constraint Programming. ACM Transactions on Interactive Intelligent Systems, 14(3).</li>
+            <li>Ahmadi Teshnizi, A., Gao, W., and Udell, M. (2024). OptiMUS: Optimization Modeling Using MIP Solvers and Large Language Models. arXiv:2310.06116.</li>
+            <li>Cosler, M., Hahn, C., Mendoza, D., Schmitt, F., and Trippel, C. (2023). nl2spec: Interactively Translating Unstructured Natural Language to Temporal Logics with Large Language Models. CAV.</li>
+            <li>Vaccaro, M., Almaatouq, A., and Malone, T. (2024). When combinations of humans and AI are useful: A systematic review and meta-analysis. Nature Human Behaviour.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="band band-dark">
         <div class="section-inner">
           <div>
             <p class="label">Shared task</p>
-            <h2>From elicited claims to solver-verifiable ground truth.</h2>
+            <h2>Elicit a formal problem from an unreliable narrator. Score it against a solver.</h2>
             <p>
-              EVOKE is organized around evaluation that can fail loudly, reveal contradictions,
-              and show when human knowledge has become machine-checkable.
+              EVOKE centers evaluation that can fail loudly, reveal contradictions, and show
+              when human knowledge has become machine-checkable.
             </p>
           </div>
           <div class="mark" aria-hidden="true">E</div>
@@ -674,8 +363,9 @@
     </main>
 
     <footer class="site-footer">
-      <span>EVOKE Workshop</span>
-      <span>Human knowledge, machine-checkable form.</span>
+      <span>EVOKE · HCOMP 2026</span>
+      <span>Eliciting Verifiable, Operational Knowledge from Experts</span>
     </footer>
   </body>
 </html>
+
