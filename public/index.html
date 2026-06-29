@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,21 +15,22 @@
       <a class="brand" href="#">EVOKE</a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="#overview">Overview</a>
-        <a href="#topics">Topics</a>
+        <a href="#rationale">Rationale</a>
         <a href="#format">Format</a>
-        <a href="#organizers">Organizers</a>
         <a href="#participate">Participate</a>
+        <a href="#organizers">Organizers</a>
+        <a href="#outcome">Outcomes</a>
       </nav>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-content">
-          <p class="eyebrow">Workshop Proposal · HCOMP 2026</p>
+          <p class="eyebrow">Workshop Proposal · HCOMP and CI 2026</p>
           <h1 id="hero-title">EVOKE</h1>
           <p class="subtitle">Eliciting Verifiable, Operational Knowledge from Experts</p>
           <p class="dek">
-            Knowledge elicitation into formal, provable, and sound representations:
+            Turning what experts know into formal representations a machine can check:
             constraints, optimization models, logic, programs, typed specifications,
             ontologies, and probabilistic models.
           </p>
@@ -42,11 +43,15 @@
         <div class="facts" aria-label="Workshop facts">
           <div class="fact">
             <strong>Venue</strong>
-            <span>HCOMP and CI 2026, Virginia Tech, near Washington DC</span>
+            <span>Virginia Tech, near Washington DC</span>
           </div>
           <div class="fact">
             <strong>Date</strong>
             <span>September 27, 2026</span>
+          </div>
+          <div class="fact">
+            <strong>Submission deadline</strong>
+            <span>July 23, 2026</span>
           </div>
           <div class="fact">
             <strong>Mode</strong>
@@ -60,135 +65,95 @@
       </section>
 
       <section class="band" id="overview">
-        <div class="section-inner split">
-          <div>
-            <p class="label">Overview</p>
-            <h2>We have abundant data and powerful learners. We still lack knowledge we can prove useful.</h2>
-          </div>
-          <div class="band-section">
-            <p>
-              EVOKE focuses on knowledge elicitation into representations with formal,
-              provable, or sound inference properties. It is organized around one question
-              that separates knowledge from data: how do we know the elicited knowledge is
-              correct and useful?
-            </p>
-            <p>
-              When the target is a formal representation, that question becomes measurable.
-              A solver returns ground truth. A verifier certifies a result. An unsatisfiable
-              core exposes a contradiction the expert did not know they held.
-            </p>
-            <p>
-              Large language models have collapsed the cost of the natural-language
-              interface that stalled knowledge acquisition for decades. But language models
-              elicit into prose, with no guarantee of soundness, and they fail open: a
-              plausible specification that is subtly wrong is the dangerous case.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="band band-dark">
-        <div class="section-inner">
-          <p class="label">Core question</p>
-          <h2>Can extracted knowledge be proven useful?</h2>
-          <div class="grid col-3 metric-grid">
-            <article class="grid-item metric-item">
-              <strong>01</strong>
-              <p>Can elicited claims be compiled into a representation a machine can reason over soundly?</p>
-            </article>
-            <article class="grid-item metric-item">
-              <strong>02</strong>
-              <p>Can correctness, completeness, faithfulness, and usefulness be measured against verifiable ground truth?</p>
-            </article>
-            <article class="grid-item metric-item">
-              <strong>03</strong>
-              <p>Can systems fail closed, exposing ambiguity and contradiction instead of producing plausible but wrong specifications?</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="band" id="topics">
         <div class="section-inner">
           <div class="split">
             <div>
-              <p class="label">Topics and subtopics</p>
-              <h2>EVOKE convenes communities that rarely share a room.</h2>
+              <p class="label">Overview</p>
+              <h2>We have endless data and powerful AI.<span class="second-statement">We still lack knowledge which is provably true and useful.</span></h2>
             </div>
             <div class="band-section">
               <p>
-                The workshop brings together knowledge engineering, expert judgment,
-                requirements engineering, human-AI interaction, operations research,
-                neuro-symbolic AI, natural language processing, formal methods, and
-                decision analysis around shared evaluation.
+                EVOKE focuses on drawing expert knowledge into forms a machine can reason
+                over and check. It turns on the one question that separates knowledge from
+                data: how do we know what we captured is correct and useful?
+              </p>
+              <p>
+                When the target is a formal representation, that question becomes measurable.
+                A solver returns ground truth. A verifier certifies a result. A contradiction
+                surfaces in the expert's own claims, one they never knew they held.
+              </p>
+              <p>
+                Large language models suddenly made it cheap to elicit knowledge from an
+                expert, taking the first steps towards resolving the bottleneck that stalled
+                this field for decades. But, they capture it as prose, with no guarantee it
+                holds up, and they fail silently: the most dangerous output is one that looks
+                right but is subtly wrong.
               </p>
             </div>
           </div>
 
-          <div class="grid col-2 card-grid" aria-label="Topics in scope">
-            <article class="grid-item card-item" style="--card-accent: var(--primary)">
-              <h3>Formal representations</h3>
-              <p>Hard and soft constraints, optimization and scheduling models, logic, programs, typed specifications, ontologies, knowledge graphs, probabilistic models, and priors.</p>
-            </article>
-            <article class="grid-item card-item" style="--card-accent: var(--accent)">
-              <h3>LLM-mediated elicitation</h3>
-              <p>Multi-turn dialogue, mixed initiative, clarifying questions, underspecification, ambiguity, contradiction, tacit knowledge, and constraints inferred from behavior.</p>
-            </article>
-            <article class="grid-item card-item" style="--card-accent: var(--primary)">
-              <h3>Evaluation and benchmarks</h3>
-              <p>Correctness, completeness, faithfulness, usefulness, calibration, known answers, unreliable narrators, and metrics for elicitation quality and efficiency.</p>
-            </article>
-            <article class="grid-item card-item" style="--card-accent: var(--accent)">
-              <h3>Solvers and verifiers</h3>
-              <p>Autoformalization, neuro-symbolic methods, constraint programming, SAT, SMT, MILP, theorem provers, and soundness-preserving pipelines.</p>
-            </article>
-            <article class="grid-item card-item" style="--card-accent: var(--primary)">
-              <h3>Educability</h3>
-              <p>Teaching versus learning, belief choice and belief verification, robust logic, and the sample and teaching efficiency of elicitation.</p>
-            </article>
-            <article class="grid-item card-item" style="--card-accent: var(--accent)">
-              <h3>Trust and accountability</h3>
-              <p>Decision traces, auditability, bias in elicitation, aggregation across experts, provenance, and governance of machine-captured knowledge.</p>
-            </article>
+          <div class="subblock core-question">
+            <p class="label">The core question</p>
+            <p class="core-question-q">"How do we know that knowledge elicited from experts is correct and useful?"</p>
+            <p class="lead">This question breaks into three sub-questions EVOKE is built to answer:</p>
+            <div class="grid col-3 metric-grid">
+              <article class="grid-item metric-item">
+                <strong>01</strong>
+                <p>Can an expert's claims be turned into a form a machine can reason over correctly?</p>
+              </article>
+              <article class="grid-item metric-item">
+                <strong>02</strong>
+                <p>Can we measure the correctness, completeness, and usefulness of these claims against ground truth?</p>
+              </article>
+              <article class="grid-item metric-item">
+                <strong>03</strong>
+                <p>Can we build systems which fail loudly, surfacing ambiguity and contradiction, instead of quietly producing answers that look right but are wrong?</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="band band-light">
+      <section class="band band-light" id="rationale">
         <div class="section-inner split">
           <div>
             <p class="label">Rationale and objectives</p>
-            <h2>The knowledge-acquisition bottleneck is newly tractable, but not solved.</h2>
+            <h2>Getting what experts know into a machine just got far easier — but it is far from solved.</h2>
           </div>
           <div class="band-section">
             <p>
               Expert systems and hand-built knowledge bases stalled because getting what a
-              person knows into a machine-usable form was slow and brittle. Language models
-              changed the economics of the interface overnight, but they often elicit into
-              latent, unverifiable form.
+              person knows into a usable form was slow and brittle. That barrier just dropped,
+              and the work is now spread across communities that rarely share a room.
+            </p>
+            <p>
+              Knowledge engineering, expert judgment, human-AI interaction, operations
+              research, neuro-symbolic AI, natural language processing, formal methods,
+              decision analysis: each holds part of the answer, and EVOKE is built to put
+              them in conversation around shared evaluation.
             </p>
             <ol>
-              <li>Convene scattered communities around a common vocabulary for elicitation, soundness, and usefulness.</li>
-              <li>Define shared evaluation using solvers and verifiers as ground truth, importing calibration and aggregation from structured expert judgment.</li>
-              <li>Launch an open, solver-verifiable shared task and dataset of elicited formal problems.</li>
-              <li>Produce a workshop report, a position paper on evaluation standards, and scope a journal special issue and recurring EVOKE series.</li>
+              <li>Bring scattered communities together around a shared language for elicitation, soundness, and usefulness.</li>
+              <li>Define shared evaluation that uses solvers and verifiers as ground truth, and borrow calibration and aggregation from the study of expert judgment.</li>
+              <li>Launch an open shared task and dataset of elicited problems that a solver can check.</li>
+              <li>Produce a workshop report, a position paper on evaluation standards, and scope a journal special issue and a recurring EVOKE series.</li>
             </ol>
           </div>
         </div>
       </section>
 
-      <section class="band" id="format">
+      <section class="band compact" id="format">
         <div class="section-inner">
           <div class="split">
             <div>
               <p class="label">Format and activities</p>
-              <h2>A full-day workshop built around eliciting and verifying something concrete.</h2>
+              <h2>A full-day workshop built around eliciting and verifying concrete information.</h2>
             </div>
             <div class="band-section">
               <p>
                 EVOKE is an in-person workshop with a hybrid option so remote authors and
-                speakers can take part. The shared-task session is participatory by design:
-                every attendee should help elicit and verify something by the end of the day.
+                speakers can take part. The shared-task session is hands-on by design: every
+                attendee should help elicit and verify something before the day is out.
               </p>
             </div>
           </div>
@@ -199,11 +164,11 @@
               <p>One on learning theory and educability; one on integrating language models with formal verifiers and solvers.</p>
             </article>
             <article class="grid-item card-item">
-              <h3>Paired invited talks</h3>
-              <p>Human-elicitation lineages such as knowledge acquisition or structured expert judgment paired with the LLM-and-solver frontier.</p>
+              <h3>Talks from experts</h3>
+              <p>Classic human-elicitation traditions (knowledge acquisition, structured expert judgment) paired with the new LLM-and-solver frontier.</p>
             </article>
             <article class="grid-item card-item">
-              <h3>Contributed program</h3>
+              <h3>Contributor Program</h3>
               <p>Full papers, short papers, position papers, demos, datasets, benchmarks, and lightning talks in a single track.</p>
             </article>
             <article class="grid-item card-item">
@@ -212,7 +177,7 @@
             </article>
             <article class="grid-item card-item">
               <h3>Panel</h3>
-              <p>Can extracted knowledge be proven useful, and is elicitation a distinct capability or something frontier scale absorbs?</p>
+              <p>Can extracted knowledge be proven useful — and is elicitation its own skill, or something that bigger AI models will simply absorb?</p>
             </article>
             <article class="grid-item card-item">
               <h3>Data clinic</h3>
@@ -223,41 +188,82 @@
       </section>
 
       <section class="band band-dark" id="participate">
-        <div class="section-inner split">
-          <div>
-            <p class="label">Call for participation</p>
-            <h2>Bring an expert, a verifier, and a hard question.</h2>
-          </div>
-          <div class="band-section">
-            <p>
-              EVOKE invites research, position, demo, and dataset papers on eliciting
-              knowledge into representations a machine can reason over soundly.
-            </p>
-            <p>
-              We welcome work on formal elicitation, LLM-mediated and mixed-initiative
-              interaction, clarifying questions, tacit knowledge, integration with SAT,
-              SMT, MILP, constraint programming, theorem provers, verifiable benchmarks,
-              structured expert judgment, educability, robotics, operations, compliance,
-              agentic AI, and vertical AI.
-            </p>
-            <p>
-              Submissions are 2 to 8 pages excluding references. Participate as an author,
-              a shared-task entrant, or a discussant.
-            </p>
+        <div class="section-inner">
+          <div class="split">
+            <div>
+              <p class="label">Call for participation</p>
+              <h2>Bring an expert, a verifier, and a hard question.</h2>
+            </div>
+            <div class="band-section">
+              <p>
+                EVOKE invites research, position, demo, and dataset papers on turning expert
+                knowledge into forms a machine can reason over correctly.
+              </p>
+              <p>
+                Submissions are 2 to 8 pages excluding references. Contribute as an author,
+                work together on the shared task, or participate in discussions.
+              </p>
 
-            <div class="date-grid" aria-label="Important dates">
-              <div class="date-box">
-                <strong>Submission deadline</strong>
-                <span>July 23, 2026</span>
+              <div class="date-grid" aria-label="Important dates">
+                <div class="date-box">
+                  <strong>Submission deadline</strong>
+                  <span>July 23, 2026</span>
+                </div>
+                <div class="date-box">
+                  <strong>Notifications</strong>
+                  <span>August 7, 2026</span>
+                </div>
+                <div class="date-box">
+                  <strong>Workshop</strong>
+                  <span>Sept. 27, 2026</span>
+                </div>
               </div>
-              <div class="date-box">
-                <strong>Notifications</strong>
-                <span>August 7, 2026</span>
-              </div>
-              <div class="date-box">
-                <strong>Workshop</strong>
-                <span>September 27, 2026</span>
-              </div>
+            </div>
+          </div>
+
+          <div class="subblock shared-task">
+            <p class="label">Shared task</p>
+            <div class="band-section">
+              <p>
+                A live, scored challenge run during the workshop: elicit a formal problem from
+                an unreliable narrator, then score it against a solver. It is evaluation that
+                can fail loudly, reveal contradictions, and show the moment human knowledge
+                becomes something a machine can check.
+              </p>
+            </div>
+          </div>
+
+          <div class="subblock in-scope">
+            <p class="label">Topics in scope</p>
+            <div class="grid col-2 card-grid" aria-label="Topics in scope">
+              <article class="grid-item card-item" style="--card-accent: var(--primary)">
+                <h3>Formal representations</h3>
+                <p>Hard and soft constraints, optimization and scheduling models, logic, programs, typed specifications, ontologies, knowledge graphs, probabilistic models, and priors.</p>
+              </article>
+              <article class="grid-item card-item" style="--card-accent: var(--accent)">
+                <h3>LLM-mediated elicitation</h3>
+                <p>Multi-turn dialogue, mixed initiative, clarifying questions, underspecification, ambiguity, contradiction, tacit knowledge, and constraints inferred from behavior.</p>
+              </article>
+              <article class="grid-item card-item" style="--card-accent: var(--primary)">
+                <h3>Evaluation and benchmarks</h3>
+                <p>Correctness, completeness, faithfulness, usefulness, calibration, known answers, unreliable narrators, and metrics for elicitation quality and efficiency.</p>
+              </article>
+              <article class="grid-item card-item" style="--card-accent: var(--accent)">
+                <h3>Solvers and verifiers</h3>
+                <p>Autoformalization, neuro-symbolic methods, constraint programming, SAT, SMT, MILP, theorem provers, and soundness-preserving pipelines.</p>
+              </article>
+              <article class="grid-item card-item" style="--card-accent: var(--primary)">
+                <h3>Educability</h3>
+                <p>Teaching versus learning, belief choice and belief verification, robust logic, and the sample and teaching efficiency of elicitation.</p>
+              </article>
+              <article class="grid-item card-item" style="--card-accent: var(--accent)">
+                <h3>Trust and accountability</h3>
+                <p>Decision traces, auditability, bias in elicitation, aggregation across experts, provenance, and governance of machine-captured knowledge.</p>
+              </article>
+              <article class="grid-item card-item" style="--card-accent: var(--primary)">
+                <h3>Application areas</h3>
+                <p>Robotics, operations, compliance, agentic AI, and vertical AI.</p>
+              </article>
             </div>
           </div>
         </div>
@@ -273,8 +279,8 @@
 
             <div class="band-section">
               <p>
-                The committee is being finalized and balanced across academia and industry,
-                research area, and demographics. At least two organizers will attend in person.
+                The organizing committee is balanced across academia and industry, research
+                area, and demographics; at least two organizers will attend in person.
               </p>
             </div>
           </div>
@@ -308,14 +314,14 @@
         <div class="section-inner split">
           <div>
             <p class="label">Outcomes and outreach</p>
-            <h2>EVOKE is designed to leave behind community infrastructure.</h2>
+            <h2>EVOKE is built to leave lasting infrastructure behind, not just a day of talks.</h2>
           </div>
           <div class="band-section">
             <p>
               Planned outcomes include a workshop report, an open benchmark, a dataset, a
               public leaderboard, a community position paper on evaluation standards for
-              elicited knowledge, and scoping for a journal special issue and recurring
-              EVOKE series. These plans are tentative.
+              elicited knowledge, and scoping for a journal special issue and a recurring
+              EVOKE series.
             </p>
             <p>
               Outreach will use HCOMP and CI channels, knowledge-engineering and Semantic
@@ -346,26 +352,51 @@
           </ol>
         </div>
       </section>
-
-      <section class="band band-dark" id="shared-task">
-        <div class="section-inner split">
-          <div>
-            <p class="label">Shared task</p>
-            <h2>Elicit a formal problem from an unreliable narrator. Score it against a solver.</h2>
-            <p>
-              EVOKE centers evaluation that can fail loudly, reveal contradictions, and show
-              when human knowledge has become machine-checkable.
-            </p>
-          </div>
-          <div class="mark" aria-hidden="true">E</div>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
-      <span>EVOKE · HCOMP 2026</span>
-      <span>Eliciting Verifiable, Operational Knowledge from Experts</span>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="footer-logo" href="#">EVOKE</a>
+          <p>Eliciting Verifiable, Operational Knowledge from Experts.</p>
+          <p class="footer-meta">HCOMP and CI 2026 · Virginia Tech, near Washington DC</p>
+          <a class="button" href="#participate">Call for participation</a>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <p class="footer-heading">Navigate</p>
+          <a href="#overview">Overview</a>
+          <a href="#rationale">Rationale</a>
+          <a href="#format">Format</a>
+          <a href="#participate">Participate</a>
+          <a href="#organizers">Organizers</a>
+          <a href="#outcome">Outcomes</a>
+          <a href="#references">References</a>
+        </nav>
+
+        <div class="footer-dates">
+          <p class="footer-heading">Key dates</p>
+          <ul>
+            <li>
+              <strong>Submission</strong>
+              <span>July 23, 2026</span>
+            </li>
+            <li>
+              <strong>Notifications</strong>
+              <span>August 7, 2026</span>
+            </li>
+            <li>
+              <strong>Workshop</strong>
+              <span>Sept. 27, 2026</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>EVOKE · HCOMP 2026 · Eliciting Verifiable, Operational Knowledge from Experts</span>
+        <span class="footer-contact">Contact: <a href="mailto:contact@evoke-workshop.org">contact@evoke-workshop.org</a></span>
+      </div>
     </footer>
   </body>
 </html>
-
