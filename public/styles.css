@@ -164,7 +164,7 @@ h1 {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   width: min(1160px, 100%);
   margin-top: clamp(44px, 7vw, 76px);
@@ -431,14 +431,6 @@ h3 {
   color: var(--ink);
   min-height: 0;
   padding-block: clamp(18px, 2.4vw, 26px);
-}
-
-/* The lone last topic card (odd count) — center it in the 2-col row instead of
-   leaving an empty cell. */
-#participate .in-scope .card-item:last-child {
-  grid-column: 1 / -1;
-  justify-self: center;
-  width: calc((100% - 1px) / 2);
 }
 
 /* Shared-task subsection in the Call — keep its description to a readable width
