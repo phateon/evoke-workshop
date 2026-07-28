@@ -23,7 +23,7 @@ html {
 
 body {
   margin: 0;
-  background: linear-gradient(269deg, var(--primary), var(--accent));
+  background: var(--primary);
   color: var(--dark-backdrop-text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.52;
@@ -156,14 +156,15 @@ h1 {
 
 .button.secondary {
   background: transparent;
-  color: var(--white);
+  color: rgba(255, 253, 247, 0.82);
+  border-color: rgba(255, 253, 247, 0.4);
 }
 
 .facts {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1px;
   width: min(1160px, 100%);
   margin-top: clamp(44px, 7vw, 76px);
@@ -171,6 +172,8 @@ h1 {
 }
 
 .fact {
+  display: flex;
+  flex-direction: column;
   min-height: 118px;
   padding: 18px;
   background: rgba(0, 0, 0, 0.22);
@@ -185,7 +188,8 @@ h1 {
 
 .fact span {
   display: block;
-  margin-top: 9px;
+  margin-top: auto;
+  margin-bottom: auto;
   font-size: 1.02rem;
   font-weight: 760;
 }
@@ -340,6 +344,116 @@ h3 {
   color: var(--muted);
 }
 
+/* .compact — shared header + card-grid treatment (Format, Topics): widen the
+   heading column so the serif title wraps to a few lines without crossing into
+   the intro, align the intro to the heading text, and trim card/section padding
+   so the section fits one screen. */
+.compact {
+  padding-block: clamp(46px, 6vw, 82px);
+}
+
+.compact .split {
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+}
+
+.compact .split h2 {
+  max-width: none;
+}
+
+/* Drop the intro so its first line sits level with the heading text,
+   not the small label above it (≈ the label's height + margin). */
+.compact .split .band-section {
+  margin-top: 28px;
+}
+
+.compact .grid {
+  margin-top: clamp(22px, 3vw, 34px);
+}
+
+.compact .card-item {
+  min-height: 0;
+  padding-block: clamp(18px, 2.4vw, 26px);
+}
+
+/* Overview — wide heading column, but slightly narrower than the .compact
+   sections so the three-paragraph intro has more room to expand. */
+#overview .split {
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr);
+}
+
+#overview .split h2 {
+  max-width: none;
+}
+
+/* Half-line gap between the two statements in the Overview headline. */
+#overview h2 .second-statement {
+  display: block;
+  margin-top: 0.5em;
+}
+
+/* Blocks merged in below a section's split header (Overview's "core question",
+   the Call's "topics in scope"): separate them from the header above and tighten
+   the gap between the block's label and its grid. */
+.subblock {
+  margin-top: clamp(48px, 7vw, 88px);
+}
+
+.subblock .grid {
+  margin-top: clamp(18px, 2.4vw, 26px);
+}
+
+/* The headline question above the core-question cards — subtly larger than the
+   connector line beneath it, in full-strength ink. */
+.core-question-q {
+  margin: 0 0 10px;
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+/* The core-question metric grid was styled for a dark band; recolor it so the
+   numerals and card faces read on Overview's light background. */
+#overview .metric-grid {
+  background: var(--line);
+}
+
+#overview .metric-item {
+  background: var(--white);
+}
+
+#overview .metric-item strong {
+  color: var(--accent);
+}
+
+/* Topic cards moved onto the dark Call section keep their light faces, so force
+   dark text for legibility, and tighten them so they hug their content. */
+#participate .card-item {
+  color: var(--ink);
+  min-height: 0;
+  padding-block: clamp(18px, 2.4vw, 26px);
+}
+
+/* The lone last topic card (odd count) — center it in the 2-col row instead of
+   leaving an empty cell. */
+#participate .in-scope .card-item:last-child {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc((100% - 1px) / 2);
+}
+
+/* Shared-task subsection in the Call — keep its description to a readable width
+   rather than spanning the full band. */
+#participate .shared-task .band-section {
+  max-width: 70ch;
+}
+
+/* Organizers and Outcomes — drop the blurb to align with the heading text, not
+   the label above it (same treatment as the .compact section intros). */
+#organizers .split .band-section,
+#outcome .split .band-section {
+  margin-top: 28px;
+}
+
 .affiliation {
   margin: 8px 0 14px;
   color: var(--primary-text);
@@ -354,6 +468,8 @@ h3 {
 }
 
 .date-box {
+  display: flex;
+  flex-direction: column;
   padding: 18px;
   border-left: 5px solid var(--accent);
   background: rgba(255, 253, 247, 0.09);
@@ -368,7 +484,8 @@ h3 {
 
 .date-box span {
   display: block;
-  margin-top: 8px;
+  margin-top: auto;
+  padding-top: 8px;
   font-weight: 780;
 }
 
@@ -385,26 +502,104 @@ h3 {
   margin: 0 0 12px;
 }
 
-.mark {
-  display: grid;
-  place-items: center;
-  width: clamp(132px, 18vw, 230px);
-  aspect-ratio: 1;
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3rem, 7vw, 6.8rem);
+.site-footer {
+  background: var(--primary);
+  color: rgba(255, 253, 247, 0.72);
+  padding: clamp(48px, 7vw, 80px) clamp(20px, 7vw, 96px) 0;
+  font-size: 0.95rem;
 }
 
-.site-footer {
+.footer-inner {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+}
+
+.footer-logo {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.footer-brand p {
+  margin: 12px 0 0;
+  max-width: 36ch;
+}
+
+.footer-meta {
+  color: rgba(255, 253, 247, 0.55);
+}
+
+.footer-brand .button {
+  margin-top: 22px;
+}
+
+.footer-heading {
+  margin: 0 0 16px;
+  color: #f3d6a5;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.footer-nav {
   display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.footer-nav a {
+  color: rgba(255, 253, 247, 0.78);
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  color: var(--white);
+}
+
+.footer-dates ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.footer-dates strong {
+  display: block;
+  color: rgba(255, 253, 247, 0.6);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.footer-dates span {
+  display: block;
+  margin-top: 3px;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 24px;
-  padding: 30px clamp(20px, 7vw, 96px);
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.92rem;
-  background: rgba(20, 23, 25, 0.9);
+  gap: 12px 24px;
+  width: min(1160px, 100%);
+  margin: clamp(40px, 6vw, 64px) auto 0;
+  padding: 22px 0;
+  border-top: 1px solid rgba(255, 253, 247, 0.14);
+  color: rgba(255, 253, 247, 0.55);
+  font-size: 0.88rem;
+}
+
+.footer-contact a {
+  color: #f3d6a5;
+  text-decoration: none;
 }
 
 @media (max-width: 980px) {
@@ -438,6 +633,26 @@ h3 {
   .references {
     columns: 1;
   }
+
+  .compact .split,
+  #overview .split {
+    grid-template-columns: 1fr;
+  }
+
+  .compact .split .band-section,
+  #organizers .split .band-section,
+  #outcome .split .band-section {
+    margin-top: 0;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  #participate .in-scope .card-item:last-child {
+    grid-column: auto;
+    width: auto;
+  }
 }
 
 @media (max-width: 560px) {
@@ -464,7 +679,7 @@ h3 {
     padding: 20px;
   }
 
-  .site-footer {
+  .footer-bottom {
     flex-direction: column;
   }
 }
